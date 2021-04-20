@@ -15,7 +15,10 @@ using namespace ariel;
 #include <string>
 using namespace std;
 ifstream units_file{"units.txt"};
-
+/*
+This TEST_CASE check some tries to create NumberWithUnits objects, 
+if the syntax is worng will throw exception.
+*/
 TEST_CASE("Create objects") {
     CHECK_THROWS(NumberWithUnits(3,"km")); // Try create object before init the conversion table.
 
@@ -122,10 +125,11 @@ TEST_CASE("Math operators"){
     NumberWithUnits distance_A(1,"km");
     NumberWithUnits distance_B(700,"m");
     NumberWithUnits distance_C(60,"cm");
+    
     CHECK(((distance_A + distance_B).getN() - 1.7)<EPS);
     CHECK(((distance_B + distance_C).getN() - 700.06)<EPS);
     CHECK((distance_C + distance_B).getType() == "cm");
-    //CHECK(((distance_A + distance_B + distance_C).getN() - 1.700060)<EPS);
+    CHECK(((distance_A + distance_B + distance_C).getN() - 1.700060)<EPS);
     CHECK(((30*distance_C).getN() - 1800) < EPS);
 
     distance_B+= distance_C;
@@ -137,7 +141,7 @@ TEST_CASE("Math operators"){
     NumberWithUnits time_C(30,"sec");
     CHECK(((time_B - time_C).getN() - 44.5)<EPS);
     CHECK(((time_A - time_B).getN() - 0.75)<EPS);
-    //CHECK(((time_B - time_A - time_C).getN() - -45.5) < EPS);
+    CHECK(((time_B - time_A - time_C).getN() - -45.5) < EPS);
     CHECK((-time_C).getN() == -30);
     CHECK(time_C.getN() == 30);
     time_B-=time_C;

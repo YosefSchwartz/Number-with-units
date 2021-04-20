@@ -26,8 +26,8 @@ namespace ariel{
             return NumberWithUnits(n,type);
         };
 
-        friend NumberWithUnits operator+(NumberWithUnits &num1, NumberWithUnits &num2);
-        friend NumberWithUnits operator-(NumberWithUnits &num1, NumberWithUnits &num2);
+        friend NumberWithUnits operator+(const NumberWithUnits &num1,const NumberWithUnits &num2);
+        friend NumberWithUnits operator-(const NumberWithUnits &num1,const NumberWithUnits &num2);
         NumberWithUnits operator+=(NumberWithUnits num2);
         NumberWithUnits operator-=(NumberWithUnits num2);
 

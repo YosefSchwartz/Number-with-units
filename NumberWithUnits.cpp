@@ -17,14 +17,15 @@ namespace ariel{
         cout<<"DO READ UNITS"<<endl;
         }
 
-    NumberWithUnits operator+(NumberWithUnits &num1, NumberWithUnits &num2){
+    NumberWithUnits operator+(const NumberWithUnits &num1,const NumberWithUnits &num2){
         double nRes = num1.n+num2.n;
         NumberWithUnits a(nRes,num1.type);
         return a;
     }
-    NumberWithUnits operator-(NumberWithUnits &num1, NumberWithUnits &num2){
-        double nRes = num1.getN()-num2.getN();
-        return NumberWithUnits(nRes,num1.getType());
+    NumberWithUnits operator-(const NumberWithUnits &num1,const NumberWithUnits &num2){
+        double nRes = num1.n-num2.n;
+        NumberWithUnits a(nRes,num1.type);
+        return a;
     }
     NumberWithUnits NumberWithUnits::operator+=(NumberWithUnits num2){
         this->n+=num2.n;
