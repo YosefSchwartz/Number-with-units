@@ -75,6 +75,13 @@ TEST_CASE("Get input from string"){
     issC>>num;
     CHECK_EQ(num.getN(),21);
     CHECK_EQ(num.getType(),"min");
+
+    istringstream issD{"     5    [ TON   ]"};
+    CHECK_THROWS(issD>>num);
+
+    istringstream issE{"     38    [ minute   ]"};
+    CHECK_THROWS(issE>>num);
+    
 }
 
 TEST_CASE("Output configuration"){
@@ -95,25 +102,25 @@ TEST_CASE("Output configuration"){
     ss.clear();
 
     NumberWithUnits num3(7,"sec");
-    ss<<num1;
+    ss<<num3;
     ss>>temp;
     CHECK(temp == "7[sec]");
     ss.clear();
 
     NumberWithUnits num4(25,"ILS");
-    ss<<num1;
+    ss<<num4;
     ss>>temp;
     CHECK(temp == "25[ILS]");
     ss.clear();
 
     NumberWithUnits num5(15.7,"kg");
-    ss<<num1;
+    ss<<num5;
     ss>>temp;
     CHECK(temp == "15.7[kg]");
     ss.clear();
 
     NumberWithUnits num6(200,"g");
-    ss<<num1;
+    ss<<num6;
     ss>>temp;
     CHECK(temp == "200[g]");
 }
@@ -127,12 +134,12 @@ TEST_CASE("Math operators"){
     NumberWithUnits distance_C(60,"cm");
     
     CHECK(((distance_A + distance_B).getN() - 1.7)<EPS);
-    CHECK(((distance_B + distance_C).getN() - 700.06)<EPS);
+    CHECK(((distance_B + distance_C).getN() - 700.6)<EPS);
     CHECK((distance_C + distance_B).getType() == "cm");
-    CHECK(((distance_A + distance_B + distance_C).getN() - 1.700060)<EPS);
+    CHECK(((distance_A + distance_B + distance_C).getN() - 1.70060)<EPS);
     CHECK(((30*distance_C).getN() - 1800) < EPS);
 
-    distance_B+= distance_C;
+    distance_B+= distance_A;
     CHECK(distance_B.getN() == 1700);
     CHECK(distance_B.getType() == "m");
     
@@ -147,8 +154,8 @@ TEST_CASE("Math operators"){
     time_B-=time_C;
     CHECK((time_B.getN() - 44.5)<EPS);
     CHECK(time_B.getType() == "min");
-    CHECK((time_C--).getN() == 29);
     CHECK((--time_C).getN() == 29);
+    CHECK((time_C--).getN() == 29);
     CHECK(time_C.getN() == 28);
 
     NumberWithUnits weight_A(0.5,"ton");
@@ -158,9 +165,9 @@ TEST_CASE("Math operators"){
     CHECK(((weight_A + weight_B).getN() - 0.8)<EPS);
     CHECK((-weight_B).getN() == 300);
     CHECK((+weight_B).getN() == -300);
-    CHECK((weight_A++).getN() == 1.5);
-    CHECK(((weight_A*3).getN() - 1.5)<EPS);
-    CHECK((++weight_C).getN()== 250);
+    CHECK((++weight_A).getN() == 1.5);
+    CHECK(((weight_A*3).getN() - 4.5)<EPS);
+    CHECK((weight_C++).getN()== 250);
     CHECK(weight_C.getN() == 251);
 
     //Try to calculate different kind of types
@@ -177,14 +184,14 @@ TEST_CASE("Comparisons"){
     NumberWithUnits distance_C(60,"cm");
     NumberWithUnits distance_D(0.5,"km");
     NumberWithUnits distance_E(4700,"m");
-    NumberWithUnits distance_F(1000000,"cm");
+    NumberWithUnits distance_F(100000,"cm");
 
     CHECK(distance_A < distance_E);
     CHECK(distance_C < distance_D);
     CHECK(distance_E > distance_C);
     CHECK(distance_F > distance_D);
     CHECK(distance_F>=distance_A);
-    CHECK(distance_D>=distance_E);
+    CHECK(distance_E>=distance_D);
     CHECK(distance_D <= distance_B);
     CHECK(distance_C <= distance_D);
     CHECK_FALSE(distance_F!=distance_A);

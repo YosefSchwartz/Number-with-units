@@ -10,6 +10,7 @@ namespace ariel{
             std::string type; //type of units
             static std::map<std::string,std::map<std::string,double>> conversionTable;
             bool isValidType(std::string type);
+        
         public:
         //Constructor
         NumberWithUnits(double units,std::string type);
@@ -18,7 +19,7 @@ namespace ariel{
         //Geters
         double getN(){return n;}
         std::string getType(){return type;}
-
+                
         NumberWithUnits operator- (){
             return NumberWithUnits(-n,type);
         };
