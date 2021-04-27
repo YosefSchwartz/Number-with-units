@@ -8,12 +8,13 @@ namespace ariel{
         private:
             double n; // number of units
             std::string type; //type of units
+            static bool isValidType(const std::string& type);
             static std::map<std::string,std::map<std::string,double>> conversionTable;
-            bool isValidType(std::string type);
-        
+
         public:
+        static void printTable_k();
         //Constructor
-        NumberWithUnits(double units,std::string type);
+        NumberWithUnits(double units,const std::string& type);
         //Read units from .txt file
         static void read_units(std::ifstream& file);
         //Geters
@@ -32,15 +33,15 @@ namespace ariel{
         NumberWithUnits operator+=(NumberWithUnits num2);
         NumberWithUnits operator-=(NumberWithUnits num2);
 
-        friend const bool operator<(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
-        friend const bool operator>(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
-        friend const bool operator<=(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
-        friend const bool operator>=(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
-        friend const bool operator!=(const NumberWithUnits &num1,const NumberWithUnits &num2)  ;
-        friend const bool operator==(const NumberWithUnits &num1,const NumberWithUnits &num2)  ;
+        friend bool operator<(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
+        friend bool operator>(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
+        friend bool operator<=(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
+        friend bool operator>=(const NumberWithUnits &num1,const NumberWithUnits &num2) ;
+        friend bool operator!=(const NumberWithUnits &num1,const NumberWithUnits &num2)  ;
+        friend bool operator==(const NumberWithUnits &num1,const NumberWithUnits &num2)  ;
 
-        friend NumberWithUnits operator*(double k,NumberWithUnits &num);
-        friend NumberWithUnits operator*(NumberWithUnits &num, double k);
+        friend NumberWithUnits operator*(double k,NumberWithUnits num);
+        friend NumberWithUnits operator*(NumberWithUnits num, double k);
 
 
         NumberWithUnits& operator++();
